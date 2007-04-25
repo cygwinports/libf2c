@@ -1,0 +1,23 @@
+diff -urN -x CYGWIN-PATCHES -x 'aclocal.m4*' -x autom4te.cache -x config.cache -x config.log -x config.status -x config.h -x config.h.in -x ABOUT-NLS -x Makefile.in.in -x Makevars.template -x '*.class' -x '*.pyc' -x '*.mo' -x '*.gmo' -x '*.orig' -x '*.rej' -x '*.spec' -x '*.temp' -x '*~' -x '*.stackdump' -x COPYING -x INSTALL -x compile -x config-ml.in -x config.guess -x config.sub -x depcomp -x elisp-comp -x install-sh -x ltmain.sh -x mdate-sh -x missing -x mkinstalldirs -x py-compile -x symlink-tree -x texinfo.tex -x ylwrap -x omf.make -x xmldocs.make -x gnome-doc-utils.make -x gnome-doc-utils.m4 -x intltool.m4 -x intltool-extract -x intltool-extract.in -x intltool-merge -x intltool-merge.in -x intltool-update -x intltool-update.in origsrc/libf2c/makefile.u src/libf2c/makefile.u
+--- origsrc/libf2c/makefile.u	2007-04-25 00:48:46.359375000 -0500
++++ src/libf2c/makefile.u	2007-04-25 01:16:44.343750000 -0500
+@@ -84,7 +84,7 @@
+ ## of "cc -shared".
+ 
+ libf2c.so: $(OFILES)
+-	cc -shared -o libf2c.so $(OFILES)
++	cc -shared -Wl,--enable-auto-image-base -Wl,--out-implib,libf2c.dll.a -o cygf2c.dll $(OFILES) -lfrtbegin
+ 
+ ### If your system lacks ranlib, you don't need it; see README.
+ 
+@@ -183,8 +183,8 @@
+ arith.h: arithchk.c
+ 	$(CC) $(CFLAGS) -DNO_FPINIT arithchk.c -lm ||\
+ 	 $(CC) -DNO_LONG_LONG $(CFLAGS) -DNO_FPINIT arithchk.c -lm
+-	./a.out >arith.h
+-	rm -f a.out arithchk.o
++	./a.exe >arith.h
++	rm -f a.exe arithchk.o
+ 
+ check:
+ 	xsum Notice README abort_.c arithchk.c backspac.c c_abs.c c_cos.c \

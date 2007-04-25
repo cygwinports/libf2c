@@ -1,0 +1,4 @@
+category: Devel
+requires: cygwin
+sdesc: "Fortran to C compiler (library)"
+ldesc: "Fortran to C compiler"
