@@ -1,15 +1,16 @@
---- origsrc/libf2c/makefile.u	2007-04-25 00:48:46.359375000 -0500
-+++ src/libf2c/makefile.u	2007-04-25 01:16:44.343750000 -0500
-@@ -84,7 +84,7 @@
- ## of "cc -shared".
- 
+--- origsrc/makefile.u	2011-01-13 18:58:35.313822600 -0600
++++ src/makefile.u	2011-01-13 19:02:29.539030100 -0600
+@@ -90,6 +90,9 @@ libf2c.a: $(OFILES)
  libf2c.so: $(OFILES)
--	cc -shared -o libf2c.so $(OFILES)
-+	cc -shared -Wl,--enable-auto-image-base -Wl,--out-implib,libf2c.dll.a -o cygf2c.dll $(OFILES) -lfrtbegin
+ 	$(CC) -shared -o libf2c.so $(OFILES)
  
++libf2c.dll.a: $(OFILES)
++	$(CC) -shared -Wl,--out-implib,libf2c.dll.a -o cygf2c-2.dll $(OFILES)
++
  ### If your system lacks ranlib, you don't need it; see README.
  
-@@ -183,8 +183,8 @@
+ f77vers.o: f77vers.c
+@@ -187,8 +190,8 @@ xwsne.o:	fmt.h
  arith.h: arithchk.c
  	$(CC) $(CFLAGS) -DNO_FPINIT arithchk.c -lm ||\
  	 $(CC) -DNO_LONG_LONG $(CFLAGS) -DNO_FPINIT arithchk.c -lm

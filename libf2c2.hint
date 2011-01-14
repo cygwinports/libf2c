@@ -1,0 +1,7 @@
+category: Devel
+requires:
+external-source: libf2c
+sdesc: "Fortran to C support routines (runtime)"
+ldesc: "Most of the routines in libf2c are support routines for Fortran 
+intrinsic functions or for operations that f2c chooses not to do 
+inline."

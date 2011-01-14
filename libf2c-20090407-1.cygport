@@ -1,0 +1,29 @@
+DESCRIPTION="Fortran to C stub library"
+HOMEPAGE="http://www.netlib.org/f2c/"
+#SRC_URI="ftp://netlib.bell-labs.com/netlib/f2c/${PN}.zip"
+SRC_URI="mirror://gentoo/${P}.zip"
+SRC_DIR=.
+
+PATCH_URI="
+	mirror://portage/dev-libs/${PN}/files/20051004-add-ofiles-dep.patch
+	mirror://portage/dev-libs/${PN}/files/20090407-main.patch
+	20090407-cygwin-build.patch
+"
+
+PKG_NAMES="${PN}2 ${PN}-devel"
+libf2c2_CONTENTS="usr/bin/cygf2c-2.dll"
+libf2c_devel_CONTENTS="usr/include/ usr/lib/ usr/share/"
+
+src_compile() {
+	lndirs
+	cd ${B}
+	cygmake -f makefile.u CFLAGS="${CFLAGS}" all libf2c.dll.a
+}
+
+src_install() {
+	cd ${B}
+	dobin *.dll
+	doinclude f2c.h
+	dolib *.a
+	dodoc README Notice
+}
