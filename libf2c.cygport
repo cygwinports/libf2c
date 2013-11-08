@@ -1,12 +1,18 @@
-DESCRIPTION="Fortran to C stub library"
+NAME="libf2c"
+VERSION=20090407
+RELEASE=1
+CATEGORY="Libs"
+SUMMARY="Fortran to C support routines"
+DESCRIPTION="Most of the routines in libf2c are support routines for Fortran
+intrinsic functions or for operations that f2c chooses not to do inline."
 HOMEPAGE="http://www.netlib.org/f2c/"
 #SRC_URI="ftp://netlib.bell-labs.com/netlib/f2c/${PN}.zip"
-SRC_URI="mirror://gentoo/${P}.zip"
+SRC_URI="mirror://gentoo/${NAME}-${VERSION}.zip"
 SRC_DIR=.
 
 PATCH_URI="
-	mirror://portage/dev-libs/${PN}/files/20051004-add-ofiles-dep.patch
-	mirror://portage/dev-libs/${PN}/files/20090407-main.patch
+	mirror://portage/dev-libs/libf2c/files/20051004-add-ofiles-dep.patch
+	mirror://portage/dev-libs/libf2c/files/20090407-main.patch
 	20090407-cygwin-build.patch
 "
 
