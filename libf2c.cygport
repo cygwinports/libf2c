@@ -1,35 +1,35 @@
 NAME="libf2c"
-VERSION=20090407
+VERSION=20110801
 RELEASE=1
 CATEGORY="Libs"
 SUMMARY="Fortran to C support routines"
 DESCRIPTION="Most of the routines in libf2c are support routines for Fortran
 intrinsic functions or for operations that f2c chooses not to do inline."
 HOMEPAGE="http://www.netlib.org/f2c/"
-#SRC_URI="ftp://netlib.bell-labs.com/netlib/f2c/${PN}.zip"
+#SRC_URI="ftp://netlib.bell-labs.com/netlib/f2c/${NAME}.zip"
 SRC_URI="mirror://gentoo/${NAME}-${VERSION}.zip"
 SRC_DIR=.
-
+# do not include the main patch. This library provides the C main() entry point
+# which wraps (and depends upon) the Fortran MAIN__ routine from f2c-compiled
+# code.  Therefore, making this shared won't work on PE platforms.
 PATCH_URI="
 	mirror://portage/dev-libs/libf2c/files/20051004-add-ofiles-dep.patch
-	mirror://portage/dev-libs/libf2c/files/20090407-main.patch
+	mirror://portage/dev-libs/libf2c/files/libf2c-20110801-64bit-long.patch?revision=1.1
 	20090407-cygwin-build.patch
 "
 
-PKG_NAMES="${PN}2 ${PN}-devel"
-libf2c2_CONTENTS="usr/bin/cygf2c-2.dll"
+PKG_NAMES="${NAME}-devel"
 libf2c_devel_CONTENTS="usr/include/ usr/lib/ usr/share/"
 
 src_compile() {
 	lndirs
 	cd ${B}
-	cygmake -f makefile.u CFLAGS="${CFLAGS}" all libf2c.dll.a
+	cygmake -f makefile.u CFLAGS="${CFLAGS}" all
 }
 
 src_install() {
 	cd ${B}
-	dobin *.dll
 	doinclude f2c.h
-	dolib *.a
+	dolib libf2c.a
 	dodoc README Notice
 }
